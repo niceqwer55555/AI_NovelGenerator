@@ -104,6 +104,12 @@ def build_optional_buttons_area(self, start_row=2):
     self.optional_btn_frame.columnconfigure((0, 1, 2, 3, 4), weight=1)
 
     self.btn_check_consistency = ctk.CTkButton(
+        self.optional_btn_frame, text="一键生成", command=self.do_onekey_check,
+        font=("Microsoft YaHei", 12), width=100  # 固定宽度
+    )
+    self.btn_check_consistency.grid(row=0, column=0, padx=5, pady=5, sticky="ew")
+
+    self.btn_check_consistency = ctk.CTkButton(
         self.optional_btn_frame, text="一致性审校", command=self.do_consistency_check, 
         font=("Microsoft YaHei", 12), width=100  # 固定宽度
     )

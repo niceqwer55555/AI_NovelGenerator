@@ -536,3 +536,27 @@ def show_plot_arcs_ui(self):
     text_area.pack(fill="both", expand=True, padx=10, pady=10)
     text_area.insert("0.0", arcs_text)
     text_area.configure(state="disabled")
+
+
+def do_onekey_check(self):
+    filepath = self.filepath_var.get().strip()
+    if not filepath:
+        messagebox.showwarning("警告", "请先在主Tab中设置保存文件路径")
+        return
+
+    plot_arcs_file = os.path.join(filepath, "plot_arcs.txt")
+    if not os.path.exists(plot_arcs_file):
+        messagebox.showinfo("剧情要点", "当前还未生成任何剧情要点或冲突记录。")
+        return
+
+    arcs_text = read_file(plot_arcs_file).strip()
+    if not arcs_text:
+        arcs_text = "当前没有记录的剧情要点或冲突。"
+
+    top = ctk.CTkToplevel(self.master)
+    top.title("剧情要点/未解决冲突")
+    top.geometry("600x400")
+    text_area = ctk.CTkTextbox(top, wrap="word", font=("Microsoft YaHei", 12))
+    text_area.pack(fill="both", expand=True, padx=10, pady=10)
+    text_area.insert("0.0", arcs_text)
+    text_area.configure(state="disabled")

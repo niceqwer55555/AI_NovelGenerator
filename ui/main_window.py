@@ -26,7 +26,8 @@ from ui.generation_handlers import (
     do_consistency_check,
     import_knowledge_handler,
     clear_vectorstore_handler,
-    show_plot_arcs_ui
+    show_plot_arcs_ui,
+    do_onekey_check
 )
 from ui.setting_tab import build_setting_tab, load_novel_architecture, save_novel_architecture
 from ui.directory_tab import build_directory_tab, load_chapter_blueprint, save_chapter_blueprint
@@ -54,10 +55,10 @@ class NovelGeneratorGUI:
 
         if self.loaded_config:
             last_llm = self.loaded_config.get("last_interface_format", "OpenAI")
-            last_embedding = self.loaded_config.get("last_embedding_interface_format", "OpenAI")
+            last_embedding = self.loaded_config.get("last_embedding_interface_format", "SiliconFlow")
         else:
             last_llm = "OpenAI"
-            last_embedding = "OpenAI"
+            last_embedding = "SiliconFlow"
 
         if self.loaded_config and "llm_configs" in self.loaded_config and last_llm in self.loaded_config["llm_configs"]:
             llm_conf = self.loaded_config["llm_configs"][last_llm]
@@ -343,6 +344,7 @@ class NovelGeneratorGUI:
     generate_chapter_blueprint_ui = generate_chapter_blueprint_ui
     generate_chapter_draft_ui = generate_chapter_draft_ui
     finalize_chapter_ui = finalize_chapter_ui
+    do_onekey_check = do_onekey_check
     do_consistency_check = do_consistency_check
     import_knowledge_handler = import_knowledge_handler
     clear_vectorstore_handler = clear_vectorstore_handler

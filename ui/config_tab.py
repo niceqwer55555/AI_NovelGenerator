@@ -295,7 +295,9 @@ def save_config_btn(self):
         "characters_involved": self.characters_involved_var.get(),
         "key_items": self.key_items_var.get(),
         "scene_location": self.scene_location_var.get(),
-        "time_constraint": self.time_constraint_var.get()
+        "time_constraint": self.time_constraint_var.get(),
+        "current_chapter": "1",
+        "total_chapters": self.safe_get_int(self.num_chapters_var, 10),
     }
     existing_config = load_config(self.config_file)
     if not existing_config:

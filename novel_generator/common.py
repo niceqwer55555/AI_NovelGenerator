@@ -20,15 +20,20 @@ def call_with_retry(func, max_retries=3, sleep_time=2, fallback_return=None, **k
     """
     for attempt in range(1, max_retries + 1):
         try:
-            return func(**kwargs)
+            result = func(**kwargs)
+            if result is None:  # 允许函数返回成功状态
+                return True
+            return result
         except Exception as e:
             logging.warning(f"[call_with_retry] Attempt {attempt} failed with error: {e}")
             traceback.print_exc()
             if attempt < max_retries:
+                logging.info(f"Retrying in {sleep_time} seconds...")
                 time.sleep(sleep_time)
             else:
                 logging.error("Max retries reached, returning fallback_return.")
-                return fallback_return
+                return fallback_return if fallback_return is not None else False
+            return False
 
 def remove_think_tags(text: str) -> str:
     """移除 <think>...</think> 包裹的内容"""
